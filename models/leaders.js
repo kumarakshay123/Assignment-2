@@ -62,6 +62,6 @@ const leaderSchema=new Schema({
 
 });
 
-const Leaders=mongoose.model('Leaders',leaderSchema);
+const Leaders=mongoose.model('Leader',leaderSchema);
 
 module.exports=Leaders;

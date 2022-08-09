@@ -23,7 +23,7 @@ const promotionsSchema=new Schema({
 
     label:{
         type:String,
-        required:true
+        default:''
 
     },
 
@@ -58,6 +58,6 @@ const promotionsSchema=new Schema({
 
 });
 
-const Promotions=mongoose.model('Promotions',promotionsSchema);
+const Promotions=mongoose.model('Promotion',promotionsSchema);
 
 module.exports=Promotions;
