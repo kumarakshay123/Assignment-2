@@ -4,6 +4,9 @@ var User=require('../models/users');
 var passport=require('passport');
 
 
+var authenticate=require('../authenticate');
+
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -128,10 +131,15 @@ router.post('/login',passport.authenticate('local'),(req,res,next)=>{
 
   // }
 
+  var token=authenticate.getToken({_id:req.user._id});
+
+
+
   res.statusCode=200;
   res.setHeader('Content-type','application/json');
   res.json({
     success:true,
+    token:token,
     message:"Login Successful"
   })
 

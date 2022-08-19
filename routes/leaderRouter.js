@@ -3,6 +3,10 @@
 const express= require('express');
 
 const mongoose=require('mongoose');
+
+
+const authenticate=require('../authenticate');
+
 const Leaders=require('../models/leaders');
 
 const router=express.Router();
@@ -34,7 +38,7 @@ router.route('/')
 })
 
 
-.post((req,res,next)=>{
+.post(authenticate.verifyUser,(req,res,next)=>{
     // res.end("Creating  a leader for you");
 
     Leaders.create(req.body)
@@ -51,11 +55,11 @@ router.route('/')
     });
 })
 
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
     res.end('Not supported on ' + ' /leaders');
 })
 
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     // res.end("Delete all the leaders on the server");
 
     Leaders.deleteMany({})
@@ -105,12 +109,12 @@ router.route('/:leaderId')
 })
 
 
-.post((req,res,next)=>{
+.post(authenticate.verifyUser,(req,res,next)=>{
     res.end("Post not supported on /leaders/:leaderId");
 })
 
 
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
     // res.end("updating the leader with  id " + req.params.leaderId);
 
     Leaders.findByIdAndUpdate(req.params.leaderId,{$set:req.body},{new:true})
@@ -129,7 +133,7 @@ router.route('/:leaderId')
 
 })
 
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     // res.end("deleting the leader with  id " + req.params.leaderid);
 
     Leaders.findByIdAndDelete(req.params.leaderId)

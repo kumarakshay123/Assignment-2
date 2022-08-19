@@ -3,6 +3,12 @@
 const express= require('express');
 
 const mongoose=require('mongoose');
+
+
+const authenticate=require('../authenticate');
+
+
+
 const Promotions=require('../models/promotions');
 
 const router=express.Router();
@@ -30,7 +36,7 @@ router.route('/')
 })
 
 
-.post((req,res,next)=>{
+.post(authenticate.verifyUser,(req,res,next)=>{
     // res.end("Creating  a promotion for you");
 
     Promotions.create(req.body)
@@ -47,11 +53,11 @@ router.route('/')
     });
 })
 
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
     res.end('Not supported on ' + ' /promotions');
 })
 
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     // res.end("Delete all the promotions on the server");
 
     Promotions.deleteMany({})
@@ -101,12 +107,12 @@ router.route('/:promoId')
 })
 
 
-.post((req,res,next)=>{
+.post(authenticate.verifyUser,(req,res,next)=>{
     res.end("Post not supported on /promotions/:promoId");
 })
 
 
-.put((req,res,next)=>{
+.put(authenticate.verifyUser,(req,res,next)=>{
     // res.end("updating the promotions with  id " + req.params.promoId);
 
     Promotions.findByIdAndUpdate(req.params.promoId,{$set:req.body},{new:true})
@@ -125,7 +131,7 @@ router.route('/:promoId')
 
 })
 
-.delete((req,res,next)=>{
+.delete(authenticate.verifyUser,(req,res,next)=>{
     // res.end("deleting the promotion with  id " + req.params.promoId);
 
     Promotions.findByIdAndDelete(req.params.promoId)
@@ -207,6 +213,8 @@ router.route('/:promoId')
 
 
 module.exports=router;
+
+
 
 
 
