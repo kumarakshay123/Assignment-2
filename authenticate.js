@@ -55,4 +55,48 @@ exports.jwtPassport=passport.use(new JwtStrategy(opts,(jwt_payload,done)=>{
 
 }))
 
+
+
+//{
 exports.verifyUser=passport.authenticate('jwt',{session:false});
+
+//}
+
+
+
+// //
+
+//  function verifyOrdinaryUser()
+//  {
+//     return passport.authenticate('jwt',{session:false});
+//  }
+
+
+
+// //
+
+// let user=verifyOrdinaryUser();
+
+
+
+// exports.verfiyAdmin(req.user.admin)
+// {
+    
+
+
+//     if(req.user.admin==admin)
+//     {
+//         next();
+
+//     }
+
+//     else
+//     {
+//         var err=new Error("You are not authoried to perform the action");
+//         err.status=403;
+//         return next(err);
+//     }
+// }
+
+//
+

@@ -26,6 +26,8 @@ var leaderRouter=require('./routes/leaderRouter');
 
 var promoRouter=require('./routes/promoRouter');
 
+var uploadRouter=require('./routes/uploadRouter');
+
 // var Dishes=require('./models/dishes');
 
 const url=config.monogurl;
@@ -234,9 +236,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.all('*',(req,res,next)=>{
+  if(req.secure){
+    return next();
+  }
+
+  else
+  {
+    res.redirect(307,'https://'+req.hostname+':'+app.get('secPort')+req.url);
+  }
+})
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/imageUpload',uploadRouter);
 
 // app.use(auth);
 
